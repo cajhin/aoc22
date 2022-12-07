@@ -61,13 +61,13 @@ func main() {
 	fmt.Println("day2a solution: ", totalScore)
 }
 
-func GetScore(a byte, b byte) int {
-	score := int(b)
-	if a == b {
-		score += 3
-	} else if a == b-1 || a == b+2 {
-		score += 6
-	}
+func GetScore(opponent byte, result byte) int {
+	var mapping = [3][3]int{
+		{3, 1, 2},
+		{1, 2, 3},
+		{2, 3, 1}}
+	score := (int(result) - 1) * 3
+	score += mapping[opponent-1][result-1]
 
 	return score
 }
