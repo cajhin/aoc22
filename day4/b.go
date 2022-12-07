@@ -31,13 +31,12 @@ func main() {
 		}
 		st1, end1 := GetRangeInt(pair[0])
 		st2, end2 := GetRangeInt(pair[1])
-		if (st1 >= st2 && end1 <= end2) ||
-			(st1 <= st2 && end1 >= end2) {
+		if st2 <= end1 && end2 >= st1 {
 			total++
 		}
 	}
 
-	fmt.Println("day4a solution: ", total, "is the number of contained ranges")
+	fmt.Println("day4b solution: ", total, "is the number of overlapping ranges")
 }
 
 func GetRangeInt(str string) (int, int) {
