@@ -35,41 +35,23 @@ func main() {
 	readFile.Close()
 
 	//parse
-	var comp1 []string
-	var comp2 []string
-
-	for _, line := range fileLines {
-		if line == "" {
-			continue
-		}
-		len := len(line)
-		str1 := line[0 : len/2]
-		str2 := line[len/2 : len]
-
-		comp1 = append(comp1, str1)
-		comp2 = append(comp2, str2)
-		if Testmode {
-			fmt.Println(line, str1, str2)
-		}
-	}
-
 	total := 0
-	for i := 0; i < len(comp1); i++ {
-		dup := FindDuplicate(comp1[i], comp2[i])
-		prio := RuneToPrio(dup)
-		total += prio
+	for i := 0; i+2 <= len(fileLines); i += 3 {
+		dup := FindDuplicate(fileLines[i], fileLines[i+1], fileLines[i+2])
+		total += RuneToPrio(dup)
 		if Testmode {
-			fmt.Println("dup: ", string(dup), "=", prio)
+			fmt.Println(i, "-", "dup:", string(dup))
 		}
 	}
 
-	fmt.Println("day3a solution: ", total, "is the added priority of all duplicate runes")
+	fmt.Println("day3b solution: ", total, "is the added priority of all badge runes")
 }
 
-func FindDuplicate(a string, b string) rune {
+func FindDuplicate(a string, b string, c string) rune {
 
 	for _, ru := range a {
-		if strings.Contains(b, string(ru)) {
+		if strings.Contains(b, string(ru)) &&
+			strings.Contains(c, string(ru)) {
 			return ru
 		}
 	}
