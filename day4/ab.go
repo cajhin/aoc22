@@ -23,7 +23,8 @@ func main() {
 	}
 
 	//parse, eval
-	total := 0
+	totalA := 0
+	totalB := 0
 	for _, line := range fileLines {
 		pair := strings.Split(line, ",")
 		if Testmode {
@@ -33,11 +34,16 @@ func main() {
 		st2, end2 := GetRangeInt(pair[1])
 		if (st1 >= st2 && end1 <= end2) ||
 			(st1 <= st2 && end1 >= end2) {
-			total++
+			totalA++
 		}
+		if st2 <= end1 && end2 >= st1 {
+			totalB++
+		}
+
 	}
 
-	fmt.Println("day4a solution: ", total, "is the number of contained ranges")
+	fmt.Println("day4a solution: ", totalA, "is the number of contained ranges")
+	fmt.Println("day4b solution: ", totalB, "is the number of overlapping ranges")
 }
 
 func GetRangeInt(str string) (int, int) {
@@ -48,7 +54,6 @@ func GetRangeInt(str string) (int, int) {
 }
 
 func ReadFileIntoGlobalArray(filePath string) {
-	//io
 	readFile, err := os.Open(filePath)
 	if err != nil {
 		fmt.Println(err)
