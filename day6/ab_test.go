@@ -10,6 +10,7 @@ import (
 // jjj 1042, 2980
 const day06SizePart1 = 4
 const day06SizePart2 = 14
+const day06Size100 = 100
 
 var day06Tests = []struct {
 	stream string
@@ -103,5 +104,17 @@ func Benchmark_jot2(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		jot_day06OnesCount(s, day06SizePart2)
+	}
+}
+
+func Benchmark_jot100(b *testing.B) {
+	buf, err := os.ReadFile("day06.txt")
+	if err != nil {
+		b.Fatal(err)
+	}
+	s := string(buf)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		jot_day06OnesCount(s, day06Size100)
 	}
 }
