@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math/bits"
 	"os"
 )
 
@@ -11,7 +12,6 @@ var Testmode bool = true
 var fileLines []string
 
 func main() {
-
 	args := os.Args[1:]
 	if len(args) > 0 && args[0] == "prod" {
 		Testmode = false
@@ -22,29 +22,35 @@ func main() {
 		ReadFileIntoGlobalArray("test")
 	}
 
-	if Testmode {
-		Test()
-	}
-
 	line := fileLines[0]
-	posA := -1
-	for i := 4; i < len(line); i++ {
-		if !HasDuplicateChars(line[i-4 : i]) {
-			posA = i
-			break
-		}
-	}
-
-	posB := -1
-	for i := 14; i < len(line); i++ {
-		if !HasDuplicateChars(line[i-14 : i]) {
-			posB = i
-			break
-		}
-	}
+	posA := FindFirstMarker(line, 4)
+	posB := FindFirstMarker(line, 14)
 
 	fmt.Println("day6a solution: first 4 unique chars end at pos:", posA)
 	fmt.Println("day6b solution: first 14 unique chars end at pos:", posB)
+}
+
+func FindFirstMarker(line string, windowSize int) int {
+	for i := windowSize; i < len(line); i++ {
+		if !HasDuplicateChars(line[i-windowSize : i]) {
+			return i
+		}
+	}
+
+	return -1
+}
+
+func jot_day06OnesCount(s string, size int) int {
+	for i := 0; i < len(s)-size; i++ {
+		var marker uint32
+		for j := i; j < i+size; j++ {
+			marker |= 1 << (s[j] - 'a')
+		}
+		if bits.OnesCount32(marker) == size {
+			return i + size
+		}
+	}
+	return 0
 }
 
 func HasDuplicateChars(str string) bool {
@@ -57,15 +63,6 @@ func HasDuplicateChars(str string) bool {
 	}
 
 	return false
-}
-
-func Test() {
-	if HasDuplicateChars("abcdABCD") || HasDuplicateChars("") || HasDuplicateChars(("X")) ||
-		!HasDuplicateChars("abcdeabcde") || !HasDuplicateChars("abcdebcdea") {
-		fmt.Println("Test FAILED")
-		os.Exit(0)
-	}
-
 }
 
 func ReadFileIntoGlobalArray(filePath string) {
