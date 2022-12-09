@@ -3,6 +3,7 @@ package main
 // start with go test -bench=. -benchmem -memprofile mprofile.out -cpuprofile cprofile.out
 
 import (
+	"fmt"
 	"os"
 	"testing"
 )
@@ -68,9 +69,13 @@ func BenchmarkDay06Part1(b *testing.B) {
 	}
 	s := string(buf)
 	b.ResetTimer()
-	for i := 0; i < 100000; i++ {
-		FindFirstMarker(s, day06SizePart1)
+	for outie := 0; outie < 10000; outie++ {
+		fmt.Println(outie, "/ 10000")
+		for i := 0; i < 10000; i++ {
+			FindFirstMarker(s, day06SizePart1)
+		}
 	}
+
 }
 func BenchmarkDay06Part2(b *testing.B) {
 	buf, err := os.ReadFile("input")
