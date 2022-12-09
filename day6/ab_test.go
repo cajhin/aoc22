@@ -9,7 +9,7 @@ import (
 
 // jjj 1042, 2980
 const day06SizePart1 = 4
-const day06SizePart2 = 100 //14
+const day06SizePart2 = 14
 
 var day06Tests = []struct {
 	stream string
@@ -84,7 +84,7 @@ func BenchmarkDay06Part2(b *testing.B) {
 }
 
 func Benchmark_jot1(b *testing.B) {
-	buf, err := os.ReadFile("input")
+	buf, err := os.ReadFile("day06.txt")
 	if err != nil {
 		b.Fatal(err)
 	}
@@ -95,7 +95,7 @@ func Benchmark_jot1(b *testing.B) {
 	}
 }
 func Benchmark_jot2(b *testing.B) {
-	buf, err := os.ReadFile("input")
+	buf, err := os.ReadFile("day06.txt")
 	if err != nil {
 		b.Fatal(err)
 	}

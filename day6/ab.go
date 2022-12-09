@@ -40,6 +40,18 @@ func FindFirstMarker(line string, windowSize int) int {
 	return -1
 }
 
+func HasDuplicateChars(str string) bool {
+	for i := len(str) - 1; i > 0; i-- {
+		for j := i - 1; j >= 0; j-- {
+			if str[i] == str[j] {
+				return true
+			}
+		}
+	}
+
+	return false
+}
+
 func jot_day06OnesCount(s string, size int) int {
 	for i := 0; i < len(s)-size; i++ {
 		var marker uint32
@@ -51,18 +63,6 @@ func jot_day06OnesCount(s string, size int) int {
 		}
 	}
 	return 0
-}
-
-func HasDuplicateChars(str string) bool {
-	for i := len(str) - 1; i > 0; i-- {
-		for j := i - 1; j >= 0; j-- {
-			if str[i] == str[j] {
-				return true
-			}
-		}
-	}
-
-	return false
 }
 
 func ReadFileIntoGlobalArray(filePath string) {
