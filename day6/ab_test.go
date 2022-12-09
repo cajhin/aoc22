@@ -68,7 +68,7 @@ func BenchmarkDay06Part1(b *testing.B) {
 	}
 	s := string(buf)
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for i := 0; i < 100000; i++ {
 		FindFirstMarker(s, day06SizePart1)
 	}
 }
