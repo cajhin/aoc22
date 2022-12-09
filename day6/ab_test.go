@@ -10,7 +10,7 @@ import (
 // jjj 1042, 2980
 const day06SizePart1 = 4
 const day06SizePart2 = 14
-const day06Size100 = 100
+const day06SizeLarge = 300
 
 var day06Tests = []struct {
 	stream string
@@ -84,6 +84,18 @@ func BenchmarkDay06Part2(b *testing.B) {
 	}
 }
 
+func BenchmarkDay06PartLarge(b *testing.B) {
+	buf, err := os.ReadFile("input")
+	if err != nil {
+		b.Fatal(err)
+	}
+	s := string(buf)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		FindFirstMarker(s, day06SizeLarge)
+	}
+}
+
 func Benchmark_jot1(b *testing.B) {
 	buf, err := os.ReadFile("day06.txt")
 	if err != nil {
@@ -115,6 +127,6 @@ func Benchmark_jot100(b *testing.B) {
 	s := string(buf)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		jot_day06OnesCount(s, day06Size100)
+		jot_day06OnesCount(s, day06SizeLarge)
 	}
 }
